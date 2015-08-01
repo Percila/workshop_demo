@@ -10,8 +10,10 @@
     {
         session_start(); //starting the session for user profile page
         if(!empty($_POST['user_input'])) //checking the 'user' name which is from Sign-In.html, is it empty or have some text 
-        { 
-            $query = mysql_query("SELECT * FROM users where userName = '$_POST[user_input]' AND pass = '$_POST[pass_input]'") or die(mysql_error());          
+        {
+            $user_input = mysql_real_escape_string($_POST['user_input']);
+            $pass_input = mysql_real_escape_string($_POST['pass_input']);
+            $query = mysql_query("SELECT * FROM users where userName = $user_input AND pass = $pass_input") or die(mysql_error());
             $row = mysql_fetch_array($query);              
             if(!empty($row['userName']) AND !empty($row['pass']))
             {
