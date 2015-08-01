@@ -7,7 +7,6 @@
 			<a href="logout.php">Get out</a><br />
 
 			<form action="content.php" method="GET">
-			<input type="hidden" name="token" value="<?php echo $token; ?>" /><p>
 			<input type=text name=write />
 			<input type=submit name=submit value='Write To File'/>
 			</form>
