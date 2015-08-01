@@ -24,13 +24,14 @@
 		 	{
 				$myFile="/opt/lampp/htdocs/text";
 				$fh = fopen($myFile, 'w') or die("can't open file");
-				fwrite($fh, $_GET['write']."\n");
-				echo $_GET['write']." has been written down on file";
+				$text = mysql_real_escape_string($_GET['write']);
+				fwrite($fh, $text."\n");
+				echo $text." has been written down on file";
 			}
 		}
 		if(isset($_GET['page_id']))
 		{
-			$page_id = $_GET['page_id'];
+			$page_id = mysql_real_escape_string($_GET['page_id']);
 			echo "<h1>$page_id</h1>";
 		}
 	}
