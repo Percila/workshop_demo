@@ -5,18 +5,28 @@
 	{
 		?>
 			<a href="logout.php">Get out</a><br />
-
+			<?
+			if(empty($_GET['submit']))
+			{
+				$token = md5(mt_rand(1,1000000));
+				$_SESSION['token'] = $token;
+			}
+			?>
 			<form action="content.php" method="GET">
+			<input type="hidden" name="token" value="<?php echo $token; ?>" /><p>
 			<input type=text name=write />
 			<input type=submit name=submit value='Write To File'/>
 			</form>
 		<?
 		if(isset($_GET['write']))
 		{
-			$myFile="/opt/lampp/htdocs/text";
-			$fh = fopen($myFile, 'w') or die("can't open file");
-			fwrite($fh, $_GET['write']."\n");
-			echo $_GET['write']." has been written down on file";
+		 	if ($_GET['token'] == $_SESSION['token'])
+		 	{
+				$myFile="/opt/lampp/htdocs/text";
+				$fh = fopen($myFile, 'w') or die("can't open file");
+				fwrite($fh, $_GET['write']."\n");
+				echo $_GET['write']." has been written down on file";
+			}
 		}
 		if(isset($_GET['page_id']))
 		{
